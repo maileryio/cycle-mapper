@@ -1,16 +1,17 @@
 {
-    "name": "maileryio/_____",
+    "name": "maileryio/cycle-composite-mapper",
     "type": "library",
-    "description": "_____",
+    "description": "Composite mapper for Cycle ORM",
     "keywords": [
-        "_____"
+        "cycle",
+        "mapper"
     ],
-    "homepage": "https://github.com/maileryio/_____",
+    "homepage": "https://github.com/maileryio/cycle-composite-mapper",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/maileryio/_____",
-        "issues": "https://github.com/maileryio/_____/issues",
-        "wiki": "https://github.com/maileryio/_____/wiki"
+        "source": "https://github.com/maileryio/cycle-composite-mapper",
+        "issues": "https://github.com/maileryio/cycle-composite-mapper/issues",
+        "wiki": "https://github.com/maileryio/cycle-composite-mapper/wiki"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -25,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mailery\\_____\\": "src"
+            "Mailery\\Cycle\\CompositeMapper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mailery\\_____\\Tests\\": "tests"
+            "Mailery\\Cycle\\CompositeMapper\\Tests\\": "tests"
         }
     },
     "scripts": {

@@ -2,9 +2,9 @@
 
 $date = date('Y');
 $header = <<<EOF
-_____
-@link      https://github.com/maileryio/_____
-@package   _____
+Composite mapper for Cycle ORM
+@link      https://github.com/maileryio/cycle-composite-mapper
+@package   Mailery\Cycle\CompositeMapper
 @license   BSD-3-Clause
 @copyright Copyright (c) {$date}, Mailery (https://mailery.io/)
 EOF;
