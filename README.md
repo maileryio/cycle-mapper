@@ -28,6 +28,31 @@ or add
 
 to the require section of your composer.json.
 
+## Usage
+
+```php
+/**
+ * @Cycle\Annotated\Annotation\Table(
+ *      columns = {
+ *          "created_at": @Cycle\Annotated\Annotation\Column(type = "datetime"),
+ *          "updated_at": @Cycle\Annotated\Annotation\Column(type = "datetime")
+ *      }
+ * )
+ */
+class SubscriberMapper extends ChainedMapper
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected function getChainItemList(): ChainItemList
+    {
+        return new ChainItemList([
+            new Timestamped('created_at', 'updated_at'),
+        ]);
+    }
+}
+```
+
 ## License
 
 This project is released under the terms of the BSD-3-Clause [license](LICENSE).

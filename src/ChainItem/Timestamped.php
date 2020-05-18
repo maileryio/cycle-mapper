@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @copyright Copyright (c) 2020, Mailery (https://mailery.io/)
  */
 
-namespace Mailery\Subscriber\Mapper\ChainedItsem;
+namespace Mailery\Cycle\Mapper\ChainItem;
 
 use Cycle\ORM\Command\CommandInterface;
 use Cycle\ORM\Command\ContextCarrierInterface;
@@ -44,7 +44,7 @@ class Timestamped implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueCreate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
         if ($this->createdAt !== null) {
             $state->register($this->createdAt, new \DateTimeImmutable(), true);
@@ -62,7 +62,7 @@ class Timestamped implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueUpdate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
         if ($this->updatedAt !== null && $cmd instanceof Update) {
             $state->register($this->updatedAt, new \DateTimeImmutable(), true);
@@ -75,7 +75,7 @@ class Timestamped implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueDelete(CommandInterface $cmd, Node $node, State $state): CommandInterface
+    public function queueDelete($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         return $cmd;
     }

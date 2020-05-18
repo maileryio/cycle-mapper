@@ -46,45 +46,48 @@ class ChainItemList
     }
 
     /**
-     * @param ContextCarrierInterface $cmd
+     * @param object $entity
      * @param Node $node
      * @param State $state
+     * @param ContextCarrierInterface $cmd
      * @return ContextCarrierInterface
      */
-    public function queueCreate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
         foreach ($this->items as $item) {
-            $cmd = $item->queueCreate($cmd, $node, $state);
+            $cmd = $item->queueCreate($entity, $node, $state, $cmd);
         }
 
         return $cmd;
     }
 
     /**
-     * @param ContextCarrierInterface $cmd
+     * @param object $entity
      * @param Node $node
      * @param State $state
+     * @param ContextCarrierInterface $cmd
      * @return ContextCarrierInterface
      */
-    public function queueUpdate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
         foreach ($this->items as $item) {
-            $cmd = $item->queueUpdate($cmd, $node, $state);
+            $cmd = $item->queueUpdate($entity, $node, $state, $cmd);
         }
 
         return $cmd;
     }
 
     /**
+     * @param object $entity
+     * @param Node $node
+     * @param State $state
      * @param CommandInterface $cmd
-     * @param Node $node
-     * @param State $state
      * @return CommandInterface
      */
-    public function queueDelete(CommandInterface $cmd, Node $node, State $state): CommandInterface
+    public function queueDelete($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         foreach ($this->items as $item) {
-            $cmd = $item->queueDelete($cmd, $node, $state);
+            $cmd = $item->queueDelete($entity, $node, $state, $cmd);
         }
 
         return $cmd;

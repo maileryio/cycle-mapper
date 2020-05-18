@@ -23,33 +23,36 @@ interface ChainItemInterface
     /**
      * Initiate chain of commands require to store object and it's data into persistent storage.
      *
-     * @param ContextCarrierInterface $cmd
+     * @param object $entity
      * @param Node   $node
      * @param State  $state
+     * @param ContextCarrierInterface $cmd
      * @throws MapperException
      * @return ContextCarrierInterface
      */
-    public function queueCreate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface;
+    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface;
 
     /**
      * Initiate chain of commands required to update object in the persistent storage.
      *
-     * @param ContextCarrierInterface $cmd
+     * @param object $entity
      * @param Node   $node
      * @param State  $state
+     * @param ContextCarrierInterface $cmd
      * @throws MapperException
      * @return ContextCarrierInterface
      */
-    public function queueUpdate(ContextCarrierInterface $cmd, Node $node, State $state): ContextCarrierInterface;
+    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface;
 
     /**
      * Initiate sequence of of commands required to delete object from the persistent storage.
      *
-     * @param CommandInterface $cmd
+     * @param object $entity
      * @param Node   $node
      * @param State  $state
+     * @param CommandInterface $cmd
      * @throws MapperException
      * @return CommandInterface
      */
-    public function queueDelete(CommandInterface $cmd, Node $node, State $state): CommandInterface;
+    public function queueDelete($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface;
 }

@@ -29,9 +29,10 @@ abstract class ChainedMapper extends Mapper
     public function queueCreate($entity, Node $node, State $state): ContextCarrierInterface
     {
         return $this->getChainItemList()->queueCreate(
-            parent::queueCreate($entity, $node, $state),
+            $entity,
             $node,
-            $state
+            $state,
+            parent::queueCreate($entity, $node, $state)
         );
     }
 
@@ -44,9 +45,10 @@ abstract class ChainedMapper extends Mapper
     public function queueUpdate($entity, Node $node, State $state): ContextCarrierInterface
     {
         return $this->getChainItemList()->queueUpdate(
-            parent::queueUpdate($entity, $node, $state),
+            $entity,
             $node,
-            $state
+            $state,
+            parent::queueUpdate($entity, $node, $state)
         );
     }
 
@@ -59,9 +61,10 @@ abstract class ChainedMapper extends Mapper
     public function queueDelete($entity, Node $node, State $state): CommandInterface
     {
         return $this->getChainItemList()->queueDelete(
-            parent::queueDelete($entity, $node, $state),
+            $entity,
             $node,
-            $state
+            $state,
+            parent::queueDelete($entity, $node, $state)
         );
     }
 
