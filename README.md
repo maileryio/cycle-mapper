@@ -1,14 +1,14 @@
-# Composite mapper for Cycle ORM
+# Mapper for Cycle ORM
 
-**Composite mapper for Cycle ORM**
+**Mapper for Cycle ORM**
 
-[![Latest Stable Version](https://poser.pugx.org/maileryio/cycle-composite-mapper/v/stable)](https://packagist.org/packages/maileryio/cycle-composite-mapper)
-[![Total Downloads](https://poser.pugx.org/maileryio/cycle-composite-mapper/downloads)](https://packagist.org/packages/maileryio/cycle-composite-mapper)
-[![Build Status](https://travis-ci.com/maileryio/cycle-composite-mapper.svg?branch=master)](https://travis-ci.com/maileryio/cycle-composite-mapper)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/maileryio/cycle-composite-mapper.svg)](https://scrutinizer-ci.com/g/maileryio/cycle-composite-mapper/)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/maileryio/cycle-composite-mapper.svg)](https://scrutinizer-ci.com/g/maileryio/cycle-composite-mapper/)
+[![Latest Stable Version](https://poser.pugx.org/maileryio/cycle-mapper/v/stable)](https://packagist.org/packages/maileryio/cycle-mapper)
+[![Total Downloads](https://poser.pugx.org/maileryio/cycle-mapper/downloads)](https://packagist.org/packages/maileryio/cycle-mapper)
+[![Build Status](https://travis-ci.com/maileryio/cycle-mapper.svg?branch=master)](https://travis-ci.com/maileryio/cycle-mapper)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/maileryio/cycle-mapper.svg)](https://scrutinizer-ci.com/g/maileryio/cycle-mapper/)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/maileryio/cycle-mapper.svg)](https://scrutinizer-ci.com/g/maileryio/cycle-mapper/)
 
-Composite mapper for Cycle ORM
+Mapper for Cycle ORM
 
 ## Installation
 
@@ -17,13 +17,13 @@ The preferred way to install this library is through [composer](http://getcompos
 Either run
 
 ```sh
-php composer.phar require "maileryio/cycle-composite-mapper"
+php composer.phar require "maileryio/cycle-mapper"
 ```
 
 or add
 
 ```json
-"maileryio/cycle-composite-mapper": "*"
+"maileryio/cycle-mapper": "*"
 ```
 
 to the require section of your composer.json.
