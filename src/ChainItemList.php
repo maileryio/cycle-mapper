@@ -22,12 +22,12 @@ class ChainItemList
     /**
      * @var ChainItemInterface[]
      */
-    private $items;
+    private $items = [];
 
     /**
      * @param ChainItemInterface[] $items
      */
-    public function __construct(array $items)
+    public function __construct(array $items = [])
     {
         foreach ($items as $item) {
             $this->addItem($item);

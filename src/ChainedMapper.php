@@ -18,7 +18,7 @@ use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
 use Cycle\ORM\Mapper\Mapper;
 
-abstract class ChainedMapper extends Mapper
+class ChainedMapper extends Mapper
 {
     /**
      * @param object $entity
@@ -71,5 +71,8 @@ abstract class ChainedMapper extends Mapper
     /**
      * @return ChainItemList
      */
-    abstract protected function getChainItemList(): ChainItemList;
+    protected function getChainItemList(): ChainItemList
+    {
+        return new ChainItemList();
+    }
 }
