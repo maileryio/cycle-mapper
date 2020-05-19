@@ -18,6 +18,7 @@
     "require": {
         "php": "^7.4",
         "cycle/orm": "^1.2",
+        "doctrine/collections": "^1.6",
         "foxy/foxy": "^1.0"
     },
     "require-dev": {

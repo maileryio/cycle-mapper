@@ -16,35 +16,10 @@ use Cycle\ORM\Command\CommandInterface;
 use Cycle\ORM\Command\ContextCarrierInterface;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class ChainItemList
+class ChainItemList extends ArrayCollection
 {
-    /**
-     * @var ChainItemInterface[]
-     */
-    private $items = [];
-
-    /**
-     * @param ChainItemInterface[] $items
-     */
-    public function __construct(array $items = [])
-    {
-        foreach ($items as $item) {
-            $this->addItem($item);
-        }
-    }
-
-    /**
-     * @param ChainItemInterface $item
-     * @return self
-     */
-    public function addItem(ChainItemInterface $item): self
-    {
-        $this->items[] = $item;
-
-        return $this;
-    }
-
     /**
      * @param object $entity
      * @param Node $node
@@ -54,7 +29,7 @@ class ChainItemList
      */
     public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
-        foreach ($this->items as $item) {
+        foreach ($this->getIterator() as $item) {
             $cmd = $item->queueCreate($entity, $node, $state, $cmd);
         }
 
@@ -70,7 +45,7 @@ class ChainItemList
      */
     public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
     {
-        foreach ($this->items as $item) {
+        foreach ($this->getIterator() as $item) {
             $cmd = $item->queueUpdate($entity, $node, $state, $cmd);
         }
 
@@ -86,7 +61,7 @@ class ChainItemList
      */
     public function queueDelete($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
-        foreach ($this->items as $item) {
+        foreach ($this->getIterator() as $item) {
             $cmd = $item->queueDelete($entity, $node, $state, $cmd);
         }
 
