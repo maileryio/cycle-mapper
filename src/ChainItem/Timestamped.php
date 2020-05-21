@@ -19,6 +19,14 @@ use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
 use Mailery\Cycle\Mapper\ChainItemInterface;
 
+/**
+ * You can use the annotated entities extension to automatically declare the needed columns from inside your mapper
+ * @see https://github.com/cycle/docs/blob/master/advanced/timestamp.md#automatically-define-columns
+ *
+ * @Cycle\Annotated\Annotation\Table(
+ *      columns={"created_at": @Cycle\Annotated\Annotation\Column(type="datetime"), "updated_at": @Column(type="datetime")}
+ * )
+ */
 class Timestamped implements ChainItemInterface
 {
     /**
