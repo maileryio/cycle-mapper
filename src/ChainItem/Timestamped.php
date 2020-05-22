@@ -40,13 +40,27 @@ class Timestamped implements ChainItemInterface
     private $updatedAt;
 
     /**
-     * @param string|null $createdAt
-     * @param string|null $updatedAt
+     * @param string $createdAt
+     * @return \self
      */
-    public function __construct(string $createdAt = null, string $updatedAt = null)
+    public function withCreatedAt(string $createdAt): self
     {
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $new = clone $this;
+        $new->createdAt = $createdAt;
+
+        return $new;
+    }
+
+    /**
+     * @param string $updatedAt
+     * @return \self
+     */
+    public function withUpdatedAt(string $updatedAt): self
+    {
+        $new = clone $this;
+        $new->updatedAt = $updatedAt;
+
+        return $new;
     }
 
     /**

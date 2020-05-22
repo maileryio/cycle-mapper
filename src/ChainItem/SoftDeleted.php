@@ -9,6 +9,8 @@ use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
 use Cycle\ORM\Command\ContextCarrierInterface;
 use Mailery\Cycle\Mapper\ChainItemInterface;
+use Cycle\ORM\ORMInterface;
+use Cycle\ORM\Schema;
 
 /**
  * You can use the annotated entities extension to automatically declare the needed columns from inside your mapper
@@ -21,16 +23,33 @@ use Mailery\Cycle\Mapper\ChainItemInterface;
 class SoftDeleted implements ChainItemInterface
 {
     /**
+     * @var ORMInterface
+     */
+    private ORMInterface $orm;
+
+    /**
      * @var string|null
      */
     private $deletedAt;
 
     /**
-     * @param string|null $deletedAt
+     * @param ORMInterface $orm
      */
-    public function __construct(string $deletedAt = null)
+    public function __construct(ORMInterface $orm)
     {
-        $this->deletedAt = $deletedAt;
+        $this->orm = $orm;
+    }
+
+    /**
+     * @param string $deletedAt
+     * @return \self
+     */
+    public function withDeletedAt(string $deletedAt): self
+    {
+        $new = clone $this;
+        $new->deletedAt = $deletedAt;
+
+        return $new;
     }
 
     /**
@@ -54,24 +73,30 @@ class SoftDeleted implements ChainItemInterface
      */
     public function queueDelete($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
+        $source = $this->orm->getSource($node->getRole());
+
         // identify entity as being "deleted"
         $state->setStatus(Node::SCHEDULED_DELETE);
         $state->decClaim();
 
         $command = new Update(
-            $this->source->getDatabase(),
-            $this->source->getTable(),
+            $source->getDatabase(),
+            $source->getTable(),
             [$this->deletedAt => new \DateTimeImmutable()]
         );
 
         // forward primaryKey value from entity state
         // this sequence is only required if the entity is created and deleted
         // within one transaction
-        $command->waitScope($this->primaryColumn);
+        $columns = $this->orm->getSchema()->define($node->getRole(), Schema::COLUMNS);
+        $primaryKey = $this->orm->getSchema()->define($node->getRole(), Schema::PRIMARY_KEY);
+        $primaryColumn = $columns[$primaryKey] ?? $primaryKey;
+
+        $command->waitScope($primaryColumn);
         $state->forward(
-            $this->primaryKey,
+            $primaryKey,
             $command,
-            $this->primaryColumn,
+            $primaryColumn,
             true,
             ConsumerInterface::SCOPE
         );

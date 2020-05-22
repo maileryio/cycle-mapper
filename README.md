@@ -47,7 +47,9 @@ class SubscriberMapper extends ChainedMapper
     protected function getChainItemList(): ChainItemList
     {
         return new ChainItemList([
-            new Timestamped('created_at', 'updated_at'),
+            (new Timestamped())
+                ->withCreatedAt('created_at')
+                ->withUpdatedAt('updated_at'),
         ]);
     }
 }
