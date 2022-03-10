@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Mailery\Cycle\Mapper\ChainItem;
 
 use Cycle\ORM\Command\CommandInterface;
-use Cycle\ORM\Command\ContextCarrierInterface;
 use Cycle\ORM\Command\Database\Update;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
@@ -66,7 +65,7 @@ class Timestamped implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         if ($this->createdAt !== null) {
             $state->register($this->createdAt, new \DateTimeImmutable(), true);
@@ -84,7 +83,7 @@ class Timestamped implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         if ($this->updatedAt !== null && $cmd instanceof Update) {
             $state->register($this->updatedAt, new \DateTimeImmutable(), true);

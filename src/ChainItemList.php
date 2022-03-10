@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Mailery\Cycle\Mapper;
 
 use Cycle\ORM\Command\CommandInterface;
-use Cycle\ORM\Command\ContextCarrierInterface;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,10 +23,10 @@ class ChainItemList extends ArrayCollection
      * @param object $entity
      * @param Node $node
      * @param State $state
-     * @param ContextCarrierInterface $cmd
-     * @return ContextCarrierInterface
+     * @param CommandInterface $cmd
+     * @return CommandInterface
      */
-    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         foreach ($this->getIterator() as $item) {
             $cmd = $item->queueCreate($entity, $node, $state, $cmd);
@@ -40,10 +39,10 @@ class ChainItemList extends ArrayCollection
      * @param object $entity
      * @param Node $node
      * @param State $state
-     * @param ContextCarrierInterface $cmd
-     * @return ContextCarrierInterface
+     * @param CommandInterface $cmd
+     * @return CommandInterface
      */
-    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         foreach ($this->getIterator() as $item) {
             $cmd = $item->queueUpdate($entity, $node, $state, $cmd);

@@ -7,7 +7,6 @@ use Cycle\ORM\Command\Database\Update;
 use Cycle\ORM\Context\ConsumerInterface;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
-use Cycle\ORM\Command\ContextCarrierInterface;
 use Mailery\Cycle\Mapper\ChainItemInterface;
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\Schema;
@@ -55,7 +54,7 @@ class SoftDeleted implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         return $cmd;
     }
@@ -63,7 +62,7 @@ class SoftDeleted implements ChainItemInterface
     /**
      * {@inheritdoc}
      */
-    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface
     {
         return $cmd;
     }

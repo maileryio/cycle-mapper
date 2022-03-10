@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Mailery\Cycle\Mapper;
 
 use Cycle\ORM\Command\CommandInterface;
-use Cycle\ORM\Command\ContextCarrierInterface;
 use Cycle\ORM\Exception\MapperException;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
@@ -26,11 +25,11 @@ interface ChainItemInterface
      * @param object $entity
      * @param Node   $node
      * @param State  $state
-     * @param ContextCarrierInterface $cmd
+     * @param CommandInterface $cmd
      * @throws MapperException
-     * @return ContextCarrierInterface
+     * @return CommandInterface
      */
-    public function queueCreate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface;
+    public function queueCreate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface;
 
     /**
      * Initiate chain of commands required to update object in the persistent storage.
@@ -38,11 +37,11 @@ interface ChainItemInterface
      * @param object $entity
      * @param Node   $node
      * @param State  $state
-     * @param ContextCarrierInterface $cmd
+     * @param CommandInterface $cmd
      * @throws MapperException
-     * @return ContextCarrierInterface
+     * @return CommandInterface
      */
-    public function queueUpdate($entity, Node $node, State $state, ContextCarrierInterface $cmd): ContextCarrierInterface;
+    public function queueUpdate($entity, Node $node, State $state, CommandInterface $cmd): CommandInterface;
 
     /**
      * Initiate sequence of of commands required to delete object from the persistent storage.

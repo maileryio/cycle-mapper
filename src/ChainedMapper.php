@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Mailery\Cycle\Mapper;
 
 use Cycle\ORM\Command\CommandInterface;
-use Cycle\ORM\Command\ContextCarrierInterface;
 use Cycle\ORM\Heap\Node;
 use Cycle\ORM\Heap\State;
 use Cycle\ORM\Mapper\Mapper;
@@ -21,12 +20,9 @@ use Cycle\ORM\Mapper\Mapper;
 class ChainedMapper extends Mapper
 {
     /**
-     * @param object $entity
-     * @param Node $node
-     * @param State $state
-     * @return ContextCarrierInterface
+     * @inheritdoc
      */
-    public function queueCreate($entity, Node $node, State $state): ContextCarrierInterface
+    public function queueCreate($entity, Node $node, State $state): CommandInterface
     {
         return $this->getChainItemList()->queueCreate(
             $entity,
@@ -37,12 +33,9 @@ class ChainedMapper extends Mapper
     }
 
     /**
-     * @param object $entity
-     * @param Node $node
-     * @param State $state
-     * @return ContextCarrierInterface
+     * @inheritdoc
      */
-    public function queueUpdate($entity, Node $node, State $state): ContextCarrierInterface
+    public function queueUpdate($entity, Node $node, State $state): CommandInterface
     {
         return $this->getChainItemList()->queueUpdate(
             $entity,
@@ -53,10 +46,7 @@ class ChainedMapper extends Mapper
     }
 
     /**
-     * @param object $entity
-     * @param Node $node
-     * @param State $state
-     * @return CommandInterface
+     * @inheritdoc
      */
     public function queueDelete($entity, Node $node, State $state): CommandInterface
     {
