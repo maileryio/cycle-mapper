@@ -8,25 +8,13 @@ use Yiisoft\Data\Reader\DataReaderInterface;
 use Yiisoft\Data\Reader\Filter\FilterInterface;
 use Yiisoft\Data\Reader\Filter\FilterProcessorInterface;
 use Yiisoft\Data\Reader\Sort;
-use Cycle\ORM\ORMInterface;
 use Yiisoft\Yii\Cycle\Data\Reader\EntityReader;
 use Cycle\ORM\Select;
 use Spiral\Database\Query\SelectQuery;
-use Spiral\Attributes\Internal\NativeAttributeReader;
-use Cycle\Annotated\Annotation\Inheritance\DiscriminatorColumn;
+use Mailery\Cycle\Mapper\Data\Reader\Inheritance;
 
 class InheritanceDataReader implements DataReaderInterface
 {
-
-    /**
-     * @var ORMInterface
-     */
-    private ORMInterface $orm;
-
-    /**
-     * @var NativeAttributeReader
-     */
-    private NativeAttributeReader $reader;
 
     /**
      * @var DataReaderInterface
@@ -34,13 +22,13 @@ class InheritanceDataReader implements DataReaderInterface
     private DataReaderInterface $dataReader;
 
     /**
-     * @param ORMInterface $orm
+     * @param Inheritance $inheritance
      * @param Select|SelectQuery $query
      */
-    public function __construct(ORMInterface $orm, Select|SelectQuery $query)
-    {
-        $this->orm = $orm;
-        $this->reader = new NativeAttributeReader();
+    public function __construct(
+        private Inheritance $inheritance,
+        Select|SelectQuery $query
+    ) {
         $this->dataReader = new EntityReader($query);
     }
 
@@ -133,7 +121,7 @@ class InheritanceDataReader implements DataReaderInterface
      */
     public function read(): iterable
     {
-        return array_map([$this, 'handleEntity'], $this->dataReader->read());
+        return array_map([$this->inheritance, 'inherit'], $this->dataReader->read());
     }
 
     /**
@@ -141,33 +129,7 @@ class InheritanceDataReader implements DataReaderInterface
      */
     public function readOne()
     {
-        return $this->handleEntity($this->dataReader->readOne());
-    }
-
-    /**
-     * @param mixed $entity
-     * @return mixed
-     */
-    private function handleEntity($entity)
-    {
-        $reflection = new \ReflectionClass(get_parent_class($entity));
-
-        foreach ($this->reader->getClassMetadata($reflection) as $attribute) {
-            if (!$attribute instanceof DiscriminatorColumn) {
-                continue;
-            }
-
-            $reflectionProperty = $reflection->getProperty($attribute->getName());
-            $reflectionProperty->setAccessible(true);
-
-            $type = $reflectionProperty->getValue($entity);
-
-            if (!$entity instanceof $type) {
-                return $this->orm->getRepository($type)->findByPK($entity->getId());
-            }
-
-            return $entity;
-        }
+        return $this->inheritance->inherit($this->dataReader->readOne());
     }
 
 }
