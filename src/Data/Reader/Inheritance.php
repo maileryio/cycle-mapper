@@ -39,10 +39,12 @@ class Inheritance
             $type = $reflectionProperty->getValue($entity);
 
             if (!$entity instanceof $type) {
-                return $this->orm->getRepository($type)->findByPK($entity->getId());
+                $entity = $this->orm->getRepository($type)->findByPK($entity->getId());
             }
 
-            return $entity;
+            return ($entity && method_exists($entity, 'withInheritance'))
+                    ? $entity->withInheritance($this)
+                    : $entity;
         }
     }
 
